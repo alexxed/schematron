@@ -1,12 +1,7 @@
 #!/usr/bin/ruby
 
 require 'optparse'
-require 'libxml'
 require 'schematron'
-
-include LibXML
-
-XML.default_line_numbers = true
 
 begin
 
@@ -15,8 +10,8 @@ begin
   instance_file = ARGV.shift or raise "instance doc file required"
 
   # parse the xml
-  schema_doc = XML::Document.file schema_file
-  instance_doc = XML::Document.file instance_file
+  schema_doc = Nokogiri::XML File.open(schema_file)
+  instance_doc = Nokogiri::XML File.open(instance_file)
   stron = Schematron::Schema.new schema_doc
 
   # validate

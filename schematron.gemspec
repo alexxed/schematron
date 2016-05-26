@@ -1,5 +1,3 @@
-#require 'semver'
-
 Gem::Specification.new do |spec|
   spec.name = "schematron"
   spec.version = "1.1.3"   #SemVer.find.format '%M.%m.%p'
@@ -13,7 +11,5 @@ Gem::Specification.new do |spec|
   spec.files += Dir['lib/*.rb']
   spec.files += Dir['spec/**/*']
   spec.files += Dir['iso-schematron-xslt1/*']
-  spec.add_dependency 'semver', '~> 0.2.0'
-  spec.add_dependency 'libxml-ruby'
-  spec.add_dependency 'libxslt-ruby', '>= 0.9.1'
+  spec.add_dependency 'nokogiri'
 end

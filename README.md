@@ -19,19 +19,17 @@ Ruby API example
 ----------------
 
     # overhead
-    require "libxml"
+    require "nokogiri"
     require "schematron"
-    
-    include LibXML
-    
+      
     # load the schematron xml
-    stron_doc = XML::Document.file "/path/to/my_schema.stron"
+    stron_doc = Nokogiri::XML File.open "/path/to/my_schema.stron"
     
     # make a schematron object
     stron = Schematron::Schema.new stron_doc
     
     # load the xml document you wish to validate
-    xml_doc = XML::Document.file "/path/to/my_xml_document.xml"
+    xml_doc = Nokogiri::XML File.open "/path/to/my_xml_document.xml"
     
     # validate it
     results = stron.validate xml_doc
