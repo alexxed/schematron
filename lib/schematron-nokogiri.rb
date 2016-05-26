@@ -1,21 +1,21 @@
 require 'nokogiri'
 
-module Schematron
-
-  # The location of the ISO schematron implemtation lives
-  ISO_IMPL_DIR = File.join File.dirname(__FILE__), "..", 'iso-schematron-xslt1'
-
-  # The file names of the compilation stages
-  ISO_FILES = ['iso_dsdl_include.xsl',
-               'iso_abstract_expand.xsl',
-               'iso_svrl_for_xslt1.xsl']
-
-  # Namespace prefix declarations for use in XPaths
-  NS_PREFIXES = {
-      'svrl' => 'http://purl.oclc.org/dsdl/svrl'
-  }
+module SchematronNokogiri
 
   class Schema
+
+    # The location of the ISO schematron implemtation lives
+    ISO_IMPL_DIR = File.join File.dirname(__FILE__), "..", 'iso-schematron-xslt1'
+
+    # The file names of the compilation stages
+    ISO_FILES = ['iso_dsdl_include.xsl',
+                 'iso_abstract_expand.xsl',
+                 'iso_svrl_for_xslt1.xsl']
+
+    # Namespace prefix declarations for use in XPaths
+    NS_PREFIXES = {
+        'svrl' => 'http://purl.oclc.org/dsdl/svrl'
+    }
 
     def initialize(doc)
       schema_doc = doc
@@ -81,5 +81,5 @@ module Schematron
     end
 
   end
-
 end
+

@@ -1,22 +1,22 @@
 require 'spec_helper'
-require 'schematron'
+require 'schematron-nokogiri'
 
 describe "validate executable" do
   
   it "should take only a schema and an instance document" do
-    `ruby -Ilib bin/stron theschema`.should =~ /Usage: /
+    `ruby -Ilib bin/stron-nokogiri theschema`.should =~ /Usage: /
   end
   
   it "should validate a good instance doc" do
     schema = 'spec/schema/fda_sip.sch'
     instance = 'spec/instances/daitss-sip/Example1.xml'
-    `ruby -Ilib bin/stron #{schema} #{instance}`.should be_empty
+    `ruby -Ilib bin/stron-nokogiri #{schema} #{instance}`.should be_empty
   end
   
   it "should print errors to standard out" do
     schema = 'spec/schema/fda_sip.sch'
     instance = 'spec/instances/daitss-sip/Example2.xml'
-    `ruby -Ilib bin/stron #{schema} #{instance}`.should =~ /^element "file" on line 48/
+    `ruby -Ilib bin/stron-nokogiri #{schema} #{instance}`.should =~ /^element "file" on line 48/
   end
   
 end

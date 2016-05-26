@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 require 'optparse'
-require 'schematron'
+require 'schematron-nokogiri'
 
 begin
 
@@ -12,7 +12,7 @@ begin
   # parse the xml
   schema_doc = Nokogiri::XML File.open(schema_file)
   instance_doc = Nokogiri::XML File.open(instance_file)
-  stron = Schematron::Schema.new schema_doc
+  stron = SchematronNokogiri::Schema.new schema_doc
 
   # validate
   errors = stron.validate(instance_doc)

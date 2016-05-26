@@ -8,12 +8,12 @@ Uses [ISO Schematron](http://www.schematron.com) version: 2010-01-25
 Installation
 ------------
 
-    % gem install schematron
+    % gem install schematron-nokogiri
 
 Command line example
 -------------------
 
-    % stron my_schema.stron my_xml_document.xml
+    % stron-nokogiri my_schema.stron my_xml_document.xml
 
 Ruby API example
 ----------------
@@ -26,7 +26,7 @@ Ruby API example
     stron_doc = Nokogiri::XML File.open "/path/to/my_schema.stron"
     
     # make a schematron object
-    stron = Schematron::Schema.new stron_doc
+    stron = SchematronNokogiri::Schema.new stron_doc
     
     # load the xml document you wish to validate
     xml_doc = Nokogiri::XML File.open "/path/to/my_xml_document.xml"
@@ -40,7 +40,8 @@ Ruby API example
     end
     
 ---
-
+This gem replaces the libxml and libxslt-ruby with Nokogiri in the gem https://github.com/flazz/schematron
+The replacement was done by Alexandru Szasz at https://github.com/alexxed/schematron
 Copyright © 2009-2010 [Francesco Lazzarino](mailto:flazzarino@gmail.com).
 
 Sponsored by [Florida Center for Library Automation](http://www.fcla.edu).
