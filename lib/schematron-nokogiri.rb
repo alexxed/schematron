@@ -29,10 +29,10 @@ module SchematronNokogiri
       end
 
       # Compile schematron into xsl that maps to svrl
-      validator_doc = xforms.inject(schema_doc) {
+      @validator_doc = xforms.inject(schema_doc) {
           |xml, xsl| xsl.transform xml
       }
-      @validator_xsl = Nokogiri::XSLT(validator_doc.to_s)
+      @validator_xsl = Nokogiri::XSLT(@validator_doc.to_s)
     end
 
     def validate(instance_doc)
@@ -45,13 +45,32 @@ module SchematronNokogiri
           rule_hits(results_doc, instance_doc, 'report', '//svrl:successful-report')
     end
 
+    def prefixes
+      namespaces = {}
+
+      @validator_doc.namespaces.each {
+          |k, v| namespaces[k.gsub 'xmlns:', ''] = v
+      }
+      namespaces
+    end
+
     # Look for reported or failed rules of a particular type in the instance doc
     def rule_hits(results_doc, instance_doc, rule_type, xpath)
 
       results = []
 
       results_doc.root.xpath(xpath, NS_PREFIXES).each do |hit|
-        context = instance_doc.root.xpath(hit['location'], NS_PREFIXES).first
+        context_tag = hit
+        context_path = nil
+        while context_path.nil?
+          context_tag = context_tag.previous_sibling
+          context_path = context_tag['context']
+        end
+
+        context = instance_doc.root.xpath(
+            context_path ? '/' + context_path : hit['location'],
+            NS_PREFIXES.merge(prefixes)
+        ).first
 
         hit.xpath('svrl:text/text()', NS_PREFIXES).each do |message|
           results << {

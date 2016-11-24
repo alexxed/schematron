@@ -34,6 +34,19 @@ describe SchematronNokogiri::Schema do
     
     results.should_not be_empty
   end
+
+  it "should detect errors for a bad ubl" do
+    schema_file = File.join 'spec', 'schema', 'ubl.sch'
+    instance_file = File.join 'spec', 'instances', 'ubl', 'ubl.xml'
+
+    schema_doc = Nokogiri::XML(File.open(schema_file))
+    instance_doc = Nokogiri::XML(File.open(instance_file))
+
+    stron = SchematronNokogiri::Schema.new schema_doc
+    results = stron.validate instance_doc
+
+    results.should_not be_empty
+  end
   
   it "should log report rules in the results" do
     schema_file = File.join 'spec', 'schema', 'pim.sch'
