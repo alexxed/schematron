@@ -78,6 +78,7 @@ module SchematronNokogiri
               :type => node_type(context),
               :name => context.name,
               :line => context.line,
+              :context_path => context_path,
               :message => message.content.strip}
         end
       end
